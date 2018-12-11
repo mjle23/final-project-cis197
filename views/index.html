@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Facebook Lite</title>
+    <script src="/static/scripts/lib/jquery.min.js"></script>
+    <script src="/static/scripts/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css"/>
+  </head>
+  <body>
+    <div class="nav">
+      <h2>Facebook Lite</h2>
+      <% if (user) { %>
+      <p>Hi <%= user %> | 
+      <a href="/account/logout">Log out</a>
+      </p>
+      <% } %>
+    </div>
+    <div class="main-body">
+      <div class="left-col">
+      <% if (user) { %>
+      <a href="#" class="btn" id="new-shoutout">Update Status + </a>
+      <div class="modal" style="display:none">
+        <div class="shoutout-area">
+          <textarea type="text" id="shoutout-text">
+          Update Status: 
+          </textarea>
+          <a class="btn" type="submit" id="submit-shoutout">Post Status</a>
+          <a class="btn" id="close-modal">Close</a>
+        </div>
+      </div>
+      <% } else { %>
+      <a class="btn" href="/account/login">Log in to see what's going on</a>
+      <a class="btn" href="/account/signup">Sign up for a new account</a>
+      <% } %>
+      <ul id="shoutout">
+        <% if (typeof shoutouts == 'object') { %>
+          <% shoutouts.forEach(function(s) { %>
+          <li data-sid=<%= s.id %>><%= s.shoutoutText %></li>
+          <% }) 
+        } %>
+      </ul>
+      </div>
+      <div class="right-col">
+        <div id="show-shoutout" style="display:none">
+            <div id="shoutout-info">
+              <p id="shoutout"></p>
+              Author: <p id="author"></p>
+              Comment: <p id="comment-text"></p>
+            </div>
+            <br/><br/>
+            <% if (user) { %>
+            <textarea id="comment"></textarea>
+            <a class="btn" type="submit" id="submitComment">Add Comment</a>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
